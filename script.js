@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="item-details"><p>${item.Ingredients}</p></div>
                         </div>
-                    <div class="item-photo-wrapper">
+                        <div class="item-photo-wrapper">
                         <img class="item-photo" src="${item.ImageURL}" alt="${item.Name}" onerror="this.style.display='none'">
                     </div>`;
 
