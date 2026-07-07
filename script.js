@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 2. FETCH MENU FROM GOOGLE SHEET
-    const API_URL = "https://sheetdb.io/api/v1/gm3z35hrm9twa"; 
+    const API_URL = "https://sheetdb.io/api/v1/gm3z35hrm9twa";
 
     fetch(API_URL)
         .then(response => response.json())
@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             data.forEach(item => {
                 const li = document.createElement('li');
-                // Check if available (column F in Google Sheet)
                 li.className = item.Available === 'No' ? 'menu-item is-sold-out' : 'menu-item';
                 
                 li.innerHTML = `
@@ -32,9 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="price">${item.Price}</span>
                         </div>
                         <div class="item-details"><p>${item.Ingredients}</p></div>
-                        </div>
-                        <div class="item-photo-wrapper">
-                        <img class="item-photo" src="${item.ImageURL}" alt="${item.Name}" onerror="this.style.display='none'">
+                    </div>
+                    <div class="item-photo-wrapper">
+                        <img class="item-photo" src="${item.ImageURL}" alt="${item.Name}" loading="lazy">
                     </div>`;
 
                 if (item.Category === 'Food') {
@@ -44,4 +43,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+
+    // 3. UPDATED IMAGE MODAL LOGIC (Event Delegation)
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('featuredPhoto');
+    const closeBtn = document.getElementById('closeModal');
+    const modalBackdrop = document.getElementById('modalBackdrop');
+
+    document.addEventListener('click', (event) => {
+        if (event.target.classList.contains('item-photo')) {
+            modal.style.display = 'block';
+            modal.setAttribute('aria-hidden', 'false');
+            modalImg.src = event.target.src;
+            modalImg.alt = event.target.alt;
+        }
+    });
+
+    const closeModal = () => {
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+    };
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
 });
