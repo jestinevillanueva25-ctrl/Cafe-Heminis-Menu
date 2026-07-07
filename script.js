@@ -45,3 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 });
+                        <img class="item-photo" src="${item.ImageURL}" alt="${item.Name}" onerror="this.style.display='none'">
+                    </div>`;
+
+                if (item.Category === 'Food') {
+                    foodList.appendChild(li);
+                } else {
+                    drinksList.appendChild(li);
+                }
+            });
+        });
+});
