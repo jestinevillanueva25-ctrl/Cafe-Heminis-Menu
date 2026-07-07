@@ -26,14 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 li.className = item.Available === 'No' ? 'menu-item is-sold-out' : 'menu-item';
                 
                 li.innerHTML = `
-                    <div class="item-meta">
-                        <div class="item-main">
-                            <span class="name">${item.Name}</span>
-                            <span class="price">${item.Price}</span>
-                        </div>
-                        <div class="item-details"><p>${item.Ingredients}</p></div>
-                    </div>`;
-
+    <div class="item-meta">
+        <div class="item-main">
+            <span class="name">${item.Name}</span>
+            <span class="price">${item.Price}</span>
+        </div>
+        <div class="item-details"><p>${item.Ingredients}</p></div>
+    </div>
+    <div class="item-photo-wrapper">
+        <img class="item-photo" src="${item.ImageURL}" alt="${item.Name}" loading="lazy">
+    </div>`;
                 if (item.Category === 'Food') {
                     foodList.appendChild(li);
                 } else {
