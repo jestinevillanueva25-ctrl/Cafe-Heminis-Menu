@@ -20,30 +20,40 @@ document.addEventListener('DOMContentLoaded', () => {
             const foodList = document.getElementById('food-list');
             const drinksList = document.getElementById('drinks-list');
 
-            data.forEach(item => {
-                const li = document.createElement('li');
-                // Check if available (column F in Google Sheet)
-                li.className = item.Available === 'No' ? 'menu-item is-sold-out' : 'menu-item';
-                
-                li.innerHTML = `
-                    <div class="item-meta">
-                        <div class="item-main">
-                            <span class="name">${item.Name}</span>
-                            <span class="price">${item.Price}</span>
-                        </div>
-                        <div class="item-details"><p>${item.Ingredients}</p></div>
-                        </div>
-                        <div class="item-photo-wrapper">
-                        <img class="item-photo" src="${item.ImageURL}" alt="${item.Name}" onerror="this.style.display='none'">
-                    </div>`;
+            ata.forEach(item => {
+    // 1. CREATE DYNAMIC HEADINGS
+    const listId = item.Category === 'Food' ? 'food-list' : 'drinks-list';
+    const listElement = document.getElementById(listId);
+    
+    // Create a unique ID for the group heading
+    const groupId = item.Group.replace(/\s+/g, '-').toLowerCase();
+    
+    // Only create the heading if it doesn't already exist on the page
+    if (!document.getElementById(groupId)) {
+        const h3 = document.createElement('h3');
+        h3.textContent = item.Group;
+        h3.id = groupId;
+        h3.className = 'group-heading'; // We will style this in CSS
+        listElement.appendChild(h3);
+    }
 
-                if (item.Category === 'Food') {
-                    foodList.appendChild(li);
-                } else {
-                    drinksList.appendChild(li);
-                }
-            });
-        });
+    // 2. CREATE THE MENU ITEM (Existing logic)
+    const li = document.createElement('li');
+    li.className = item.Available === 'No' ? 'menu-item is-sold-out' : 'menu-item';
+    li.innerHTML = `
+        <div class="item-meta">
+            <div class="item-main">
+                <span class="name">${item.Name}</span>
+                <span class="price">${item.Price}</span>
+            </div>
+            <div class="item-details"><p>${item.Ingredients}</p></div>
+        </div>
+        <div class="item-photo-wrapper">
+            <img class="item-photo" src="${item.ImageURL}" alt="${item.Name}" onerror="this.style.display='none'">
+        </div>`;
+        
+    listElement.appendChild(li);
+});
 const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('featuredPhoto');
     const closeBtn = document.getElementById('closeModal');
