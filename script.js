@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="name">${item.Name}</span>
                             <span class="price">${item.Price}</span>
                         </div>
-                        <div class="item-details"><p>${item.Ingredients}</p></div>
+                        <div class="item-photo-wrapper">
+                            <img class="item-photo" src="${item.ImageURL}" alt="${item.Name}" loading="lazy">
                     </div>`;
 
                 if (item.Category === 'Food') {
