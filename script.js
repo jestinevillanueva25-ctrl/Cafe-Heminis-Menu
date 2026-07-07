@@ -1,117 +1,110 @@
+function openImageModal(src) {
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('featuredPhoto');
+  if (!modal || !modalImg) return;
+
+  modalImg.src = src || '';
+  modalImg.alt = 'Enlarged food photo';
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeImageModal() {
+  const modal = document.getElementById('imageModal');
+  if (!modal) return;
+
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+function addPhotoLayoutToMenuItems() {
+  const menuItems = document.querySelectorAll('.menu-item');
+
+  menuItems.forEach((item) => {
+    if (item.querySelector('.item-photo-wrapper')) {
+      item.classList.add('item-with-photo');
+      return;
+    }
+
+    const itemMain = item.querySelector('.item-main');
+    const itemDetails = item.querySelector('.item-details');
+    const itemName = itemMain ? itemMain.querySelector('.name') : null;
+    const labelText = itemName ? itemName.textContent.trim() : 'Menu item';
+
+    if (!itemMain || !itemDetails) return;
+
+    const meta = document.createElement('div');
+    meta.className = 'item-meta';
+
+    itemMain.parentNode.insertBefore(meta, itemMain);
+    meta.appendChild(itemMain);
+    meta.appendChild(itemDetails);
+
+    const photoWrapper = document.createElement('div');
+    photoWrapper.className = 'item-photo-wrapper';
+
+    const image = document.createElement('img');
+    image.className = 'item-photo';
+    image.src = 'assets/photo-placeholder.svg';
+    image.alt = labelText;
+    image.loading = 'lazy';
+
+    const label = document.createElement('span');
+    label.className = 'photo-label';
+    label.textContent = labelText;
+
+    photoWrapper.appendChild(image);
+    photoWrapper.appendChild(label);
+    item.appendChild(photoWrapper);
+    item.classList.add('item-with-photo');
+  });
+}
+
+/* QR generation removed â€” site now displays the menu directly. */
+
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. TAB SWITCHING LOGIC
-    const tabs = document.querySelectorAll('.menu-tab');
-    const panels = document.querySelectorAll('.menu-panel');
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('is-active'));
-            panels.forEach(p => p.classList.remove('is-active'));
-            tab.classList.add('is-active');
-            document.getElementById(tab.dataset.panel).classList.add('is-active');
-        });
+  const tabs = document.querySelectorAll('.menu-tab');
+  const panels = document.querySelectorAll('.menu-panel');
+  // QR elements removed; keep modal and tab behavior
+  const closeBtn = document.getElementById('closeModal');
+  const backdrop = document.getElementById('modalBackdrop');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      tabs.forEach((item) => {
+        item.classList.remove('is-active');
+        item.setAttribute('aria-selected', 'false');
+      });
+      panels.forEach((panel) => panel.classList.remove('is-active'));
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected', 'true');
+      const target = document.getElementById(tab.dataset.panel);
+      if (target) target.classList.add('is-active');
     });
+  });
 
-    // 2. FETCH MENU FROM GOOGLE SHEET
-    const API_URL = "https://sheetdb.io/api/v1/gm3z35hrm9twa"; 
+  addPhotoLayoutToMenuItems();
 
-    fetch(API_URL)
-        .then(response => response.json())
-        .then(data => {
-            const foodList = document.getElementById('food-list');
-            const drinksList = document.getElementById('drinks-list');
+  document.addEventListener('click', (event) => {
+    const photo = event.target.closest('.item-photo');
+    if (!photo) return;
 
-            // possible column names in the sheet that may contain image URLs
-            const imageKeys = ['ImageURL','Image_URL','ImageUrl','Image','image','Photo','photo','Picture','picture','Img','img','Photo_URL','PhotoUrl'];
+    event.stopPropagation();
+    const src = photo.currentSrc || photo.src;
+    const modalImg = document.getElementById('featuredPhoto');
+    if (modalImg) {
+      modalImg.alt = photo.alt || 'Enlarged photo';
+    }
+    openImageModal(src);
+  });
 
-            function findImageUrl(item){
-                for(const k of imageKeys){
-                    if(item[k] && item[k].toString().trim() !== '') return item[k].toString().trim();
-                }
-                return null;
-            }
+  if (closeBtn) closeBtn.addEventListener('click', closeImageModal);
+  if (backdrop) backdrop.addEventListener('click', closeImageModal);
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeImageModal();
+  });
 
-            function normalizeDriveUrl(url){
-                // Convert common Google Drive share links to a direct image link that works in an <img>
-                try{
-                    if(!url) return url;
-                    // Trim surrounding whitespace
-                    url = url.trim();
-                    if(/drive\.google\.com/.test(url)){
-                        // id=FILE_ID
-                        const m1 = url.match(/[?&]id=([^&]+)/);
-                        if(m1 && m1[1]) return 'https://drive.google.com/uc?export=view&id=' + m1[1];
-                        // /d/FILE_ID/
-                        const m2 = url.match(/\/d\/([^\/]+)\//);
-                        if(m2 && m2[1]) return 'https://drive.google.com/uc?export=view&id=' + m2[1];
-                        // share link ending with ?usp=sharing or similar - try to extract last path segment
-                        const m3 = url.match(/drive\.google\.com\/file\/d\/([^\/]+)(?:\/|$)/);
-                        if(m3 && m3[1]) return 'https://drive.google.com/uc?export=view&id=' + m3[1];
-                    }
-                }catch(e){/* ignore and return original */}
-                return url;
-            }
-
-            data.forEach(item => {
-                const li = document.createElement('li');
-                // Check if available (column in Google Sheet)
-                li.className = item.Available === 'No' ? 'menu-item is-sold-out' : 'menu-item';
-
-                // Build inner structure so images load reliably
-                const meta = document.createElement('div');
-                meta.className = 'item-meta';
-
-                const main = document.createElement('div');
-                main.className = 'item-main';
-
-                const nameSpan = document.createElement('span');
-                nameSpan.className = 'name';
-                nameSpan.textContent = item.Name || '';
-
-                const priceSpan = document.createElement('span');
-                priceSpan.className = 'price';
-                priceSpan.textContent = item.Price || '';
-
-                main.appendChild(nameSpan);
-                main.appendChild(priceSpan);
-
-                const details = document.createElement('div');
-                details.className = 'item-details';
-                const p = document.createElement('p');
-                p.textContent = item.Ingredients || '';
-                details.appendChild(p);
-
-                meta.appendChild(main);
-                meta.appendChild(details);
-
-                // IMAGE (if any)
-                const imageUrl = findImageUrl(item);
-                if(imageUrl){
-                    const imgDiv = document.createElement('div');
-                    imgDiv.className = 'item-photo-wrapper';
-                    const img = document.createElement('img');
-                    img.className = 'item-photo';
-                    img.src = normalizeDriveUrl(imageUrl);
-                    img.alt = item.Name || '';
-                    img.loading = 'lazy';
-                    // hide broken images
-                    img.addEventListener('error', () => {
-                        img.style.display = 'none';
-                    });
-                    imgDiv.appendChild(img);
-                    // append image before meta so it displays nicely depending on CSS
-                    li.appendChild(imgDiv);
-                }
-
-                li.appendChild(meta);
-
-                if (item.Category === 'Food') {
-                    foodList.appendChild(li);
-                } else {
-                    drinksList.appendChild(li);
-                }
-            });
-        })
-        .catch(err => {
-            console.error('Failed to load menu data', err);
-        });
+  // No QR generation to run
 });
