@@ -21,40 +21,37 @@ document.addEventListener('DOMContentLoaded', () => {
             const drinksList = document.getElementById('drinks-list');
 
             data.forEach(item => {
-    // 1. CREATE DYNAMIC HEADINGS
-            const listId = item.Category === 'Food' ? 'food-list' : 'drinks-list';
-            const listElement = document.getElementById(listId);
-    
-    // Create a unique ID for the group heading
-            const groupId = item.Group.replace(/\s+/g, '-').toLowerCase();
+                const listId = item.Category === 'Food' ? 'food-list' : 'drinks-list';
+                const listElement = document.getElementById(listId);
+                const groupId = item.Group.replace(/\s+/g, '-').toLowerCase();
                     
-    // Only create the heading if it doesn't already exist on the page
-            if (!document.getElementById(groupId)) {
-                const h3 = document.createElement('h3');
-                h3.textContent = item.Group;
-                h3.id = groupId;
-                h3.className = 'group-heading'; // We will style this in CSS
-            listElement.appendChild(h3);
-    }
+                if (!document.getElementById(groupId)) {
+                    const h3 = document.createElement('h3');
+                    h3.textContent = item.Group;
+                    h3.id = groupId;
+                    h3.className = 'group-heading';
+                    listElement.appendChild(h3);
+                }
 
-            // 2. CREATE THE MENU ITEM (Existing logic)
-            const li = document.createElement('li');
-            li.className = item.Available === 'No' ? 'menu-item is-sold-out' : 'menu-item';
-            li.innerHTML = `
-        <div class="item-meta">
-            <div class="item-main">
-                <span class="name">${item.Name}</span>
-                <span class="price">${item.Price}</span>
-            </div>
-            <div class="item-details"><p>${item.Ingredients}</p></div>
-        </div>
-        <div class="item-photo-wrapper">
-            <img class="item-photo" src="${item.ImageURL}" alt="${item.Name}" onerror="this.style.display='none'">
-        </div>`;
-        
-            listElement.appendChild(li);
+                const li = document.createElement('li');
+                li.className = item.Available === 'No' ? 'menu-item is-sold-out' : 'menu-item';
+                li.innerHTML = `
+                    <div class="item-meta">
+                        <div class="item-main">
+                            <span class="name">${item.Name}</span>
+                            <span class="price">${item.Price}</span>
+                        </div>
+                        <div class="item-details"><p>${item.Ingredients}</p></div>
+                    </div>
+                    <div class="item-photo-wrapper">
+                        <img class="item-photo" src="${item.ImageURL}" alt="${item.Name}" onerror="this.style.display='none'">
+                    </div>`;
+                listElement.appendChild(li);
+            });
         });
-const modal = document.getElementById('imageModal');
+
+    // 3. IMAGE MODAL LOGIC (Kept outside the fetch loop)
+    const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('featuredPhoto');
     const closeBtn = document.getElementById('closeModal');
     const modalBackdrop = document.getElementById('modalBackdrop');
