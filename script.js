@@ -43,49 +43,4 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
-
-    // 3. UPDATED IMAGE MODAL LOGIC (Event Delegation)
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('featuredPhoto');
-    const closeBtn = document.getElementById('closeModal');
-    const modalBackdrop = document.getElementById('modalBackdrop');
-
-    document.addEventListener('click', (event) => {
-        if (event.target.classList.contains('item-photo')) {
-            modal.style.display = 'block';
-            modal.setAttribute('aria-hidden', 'false');
-            modalImg.src = event.target.src;
-            modalImg.alt = event.target.alt;
-        }
-    });
-
-    const closeModal = () => {
-        modal.style.display = 'none';
-        modal.setAttribute('aria-hidden', 'true');
-    };
-
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
-        // 3. UPDATED IMAGE MODAL LOGIC (Event Delegation)
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('featuredPhoto');
-    const closeBtn = document.getElementById('closeModal');
-    const modalBackdrop = document.getElementById('modalBackdrop');
-
-    document.addEventListener('click', (event) => {
-        if (event.target.classList.contains('item-photo')) {
-            modal.style.display = 'block';
-            modal.setAttribute('aria-hidden', 'false');
-            modalImg.src = event.target.src;
-            modalImg.alt = event.target.alt;
-        }
-    });
-
-    const closeModal = () => {
-        modal.style.display = 'none';
-        modal.setAttribute('aria-hidden', 'true');
-    };
-
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
 });
