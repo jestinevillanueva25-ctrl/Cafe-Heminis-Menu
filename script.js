@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 2. FETCH MENU FROM GOOGLE SHEET
-    const API_URL = https://sheetdb.io/api/v1/gm3z35hrm9twa; 
+    const API_URL = "https://sheetdb.io/api/v1/gm3z35hrm9twa"; 
 
     fetch(API_URL)
         .then(response => response.json())
