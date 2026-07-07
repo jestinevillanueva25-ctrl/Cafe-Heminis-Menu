@@ -173,6 +173,12 @@ body {
   white-space: nowrap;
 }
 
+.item-photo {
+    cursor: pointer;
+    position: relative; /* Add this */
+    z-index: 10;        /* This forces the image to the front */
+}
+
 /* =========================================
    6. INGREDIENTS & STEPS
    ========================================= */
