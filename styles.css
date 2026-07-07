@@ -189,6 +189,14 @@ body {
     z-index: 10;        /* This forces the image to the front */
 }
 
+.item-photo {
+    cursor: pointer; /* Provides visual feedback */
+    transition: transform 0.2s;
+}
+
+.item-photo:hover {
+    transform: scale(1.05); /* Optional: visual cue */
+}
 /* =========================================
    6. INGREDIENTS & STEPS
    ========================================= */
