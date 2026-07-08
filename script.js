@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 2. FETCH MENU
-    const API_URL = "https://sheetdb.io/api/v1/6zbvx3n42q82e";
+    const API_URL = "https://sheetdb.io/api/v1/https://sheetdb.io/api/v1/sxs267ijezbcw";
     fetch(API_URL)
         .then(res => res.json())
         .then(data => {
