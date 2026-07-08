@@ -1,40 +1,363 @@
+Working css
 /* =========================================
-   1. CSS VARIABLES
+   1. CSS VARIABLES (Update your colors here)
    ========================================= */
 :root {
-  --bg-color: #b26b3c;
-  --card-bg: #f3e0c6;
-  --text-main: #4b2e1f;
-  --text-muted: #7d5a46;
-  --accent-color: #f9e4c6;
-  --tab-bg: rgba(255, 255, 255, 0.35);
+  --bg-color: #b26b3c;        /* Logo brown background */
+  --card-bg: #f3e0c6;         /* Cream card background */
+  --text-main: #4b2e1f;       /* Dark brown text */
+  --text-muted: #7d5a46;      /* Warm muted text */
+  --accent-color: #f9e4c6;    /* Light cream accent */
+  --border-color: #dec2a2;    /* Soft border tone */
+  --tab-bg: rgba(255, 255, 255, 0.35); /* Semi-transparent tab background */
 }
 
 /* =========================================
-   2. GLOBAL
+   2. GLOBAL & TYPOGRAPHY
    ========================================= */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, sans-serif; background-color: var(--bg-color); color: var(--text-main); line-height: 1.5; padding-bottom: 40px; }
-.container { max-width: 620px; margin: 0 auto; padding: 0 16px 24px; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.5;
+  padding-bottom: 40px;
+}
+
+.container {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 0 16px 24px;
+}
 
 /* =========================================
    3. HEADER & TABS
    ========================================= */
-.site-header { text-align: center; padding: 28px 0 18px; }
-.site-header h1 { font-size: 28px; font-weight: 800; text-transform: uppercase; }
-.subtitle { color: var(--text-muted); font-size: 14px; margin-top: 6px; }
+.site-header {
+  text-align: center;
+  padding: 28px 0 18px;
+}
 
-.menu-tabs { display: flex; justify-content: center; gap: 12px; margin-bottom: 20px; }
-.menu-tab { background-color: var(--tab-bg); color: var(--text-main); border: none; padding: 12px 28px; border-radius: 999px; font-weight: 700; cursor: pointer; }
-.menu-tab.is-active { background-color: var(--accent-color); color: #fff; }
+.site-header h1 {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.menu-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.menu-tab {
+  background-color: var(--tab-bg);
+  color: var(--text-main);
+  border: none;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.menu-tab:hover {
+  transform: translateY(-1px);
+}
+
+.menu-tab.is-active {
+  background-color: var(--accent-color);
+  color: #fff;
+}
 
 /* =========================================
-   4. MENU STRUCTURE
+   4. PANELS & CARDS (Modern UI)
    ========================================= */
-.menu-panel { display: none; }
-.menu-panel.is-active { display: block; }
+.menu-panel {
+  display: none;
+  animation: fadeIn 0.35s ease-in-out;
+}
 
-/* Group Headings */
+.menu-panel.is-active {
+  display: block;
+}
+
+.group-heading {
+    margin: 25px 0 10px 0;
+    padding: 5px;
+    background: #f4ece2; /* Subtle background color */
+    border-left: 5px solid #8d6e63; /* Accent color */
+    color: #5d4037;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.menu-card {
+  background-color: rgba(255, 255, 255, 0.96);
+  border-radius: 34px;
+  padding: 26px;
+  margin-bottom: 22px;
+  box-shadow: 0 24px 50px rgba(32, 15, 7, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.menu-card h2 {
+  font-size: 22px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(189, 133, 84, 0.18);
+}
+
+.menu-card h3 {
+  font-size: 16px;
+  margin: 22px 0 14px;
+  color: var(--text-muted);
+}
+
+.note {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* =========================================
+   5. MENU LIST & PERFECT ALIGNMENT
+   ========================================= */
+.menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-item {
+  background-color: #fff;
+  border-radius: 28px;
+  padding: 18px 18px 18px 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 18px 36px rgba(58, 30, 15, 0.08);
+  border: 1px solid rgba(216, 156, 102, 0.16);
+}
+
+.menu-item:last-child {
+  margin-bottom: 0;
+}
+
+.menu-item.item-with-photo {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  gap: 18px;
+  align-items: center;
+}
+
+.item-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.price, .prices {
+  font-weight: 700;
+  color: var(--accent-color);
+  white-space: nowrap;
+}
+
+.item-photo {
+    cursor: pointer;
+    position: relative; /* Add this */
+    z-index: 10;        /* This forces the image to the front */
+}
+
+.item-photo {
+    cursor: pointer; /* Provides visual feedback */
+    transition: transform 0.2s;
+}
+
+.item-photo:hover {
+    transform: scale(1.05); /* Optional: visual cue */
+}
+/* =========================================
+   6. INGREDIENTS & STEPS
+   ========================================= */
+.item-details {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.item-details p {
+  margin: 0;
+}
+
+.item-details strong {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+/* =========================================
+   7. IMAGES & MEDIA
+   ========================================= */
+.item-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.item-photo-wrapper {
+  width: 96px;
+  height: 96px;
+  border-radius: 26px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 16px 34px rgba(71, 29, 9, 0.18);
+}
+
+.item-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.item-photo:hover {
+  transform: scale(1.04);
+}
+
+.photo-label {
+  display: none;
+}
+
+.image-modal {
+  position: fixed;
+  inset: 0;
+  display: none; /* Hidden by default */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+/* This class is added by your script.js */
+.image-modal.open {
+  display: flex !important; 
+}
+
+.image-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.image-modal-content {
+  position: relative;
+  z-index: 1;
+  width: min(92vw, 440px);
+  background: #fff;
+  border-radius: 26px;
+  padding: 14px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.22);
+}
+
+.image-modal-content img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 20px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.72);
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Footer styles */
+
+.site-footer {
+  text-align: center;
+  padding: 22px 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+@media (max-width: 520px) {
+    .menu-card {
+        padding: 20px;
+    }
+    
+    .menu-item.item-with-photo {
+        display: block;
+    }
+} /* <--- YOU WERE MISSING THIS CLOSING BRACE */
+
+/* Now these classes will be read correctly by the browser */
+
+.menu-tile {
+  background: #ffffff; /* White background for the tile */
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Adds the visual lift */
+  margin-bottom: 20px;
+}
+
+.menu-group-tile {
+    background: transparent;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.menu-group-tile h3 {
+    margin: 20px 0 15px 10px;
+    color: #4b2e1f;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.menu-group-tile .menu-item {
+    background-color: #ffffff;
+    border-radius: 28px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 10px 20px rgba(32, 15, 7, 0.08);
+    border: 1px solid rgba(216, 156, 102, 0.16);
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    gap: 16px;
+    align-items: start;
+}
+
 .group-heading {
     display: inline-block;
     background: rgba(255, 255, 255, 0.2);
@@ -45,35 +368,25 @@ body { font-family: -apple-system, sans-serif; background-color: var(--bg-color)
     letter-spacing: 1.5px;
     text-transform: uppercase;
     margin: 30px 0 15px 0;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px); /* Adds a modern frosted-glass effect */
 }
 
-.menu-list { list-style: none; margin: 0; padding: 0; }
-
-/* Menu Items */
-.menu-item {
-  background-color: #fff;
-  border-radius: 28px;
-  padding: 18px;
-  margin-bottom: 16px;
-  box-shadow: 0 10px 20px rgba(32, 15, 7, 0.08);
-  display: grid;
-  grid-template-columns: 1fr 100px;
-  gap: 16px;
-  align-items: start;
+.menu-items-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
-.name { font-weight: 700; font-size: 16px; }
-.price { font-weight: 700; color: #d89c66; }
+.item-photo-wrapper {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    overflow: hidden;
+}
 
-.item-photo-wrapper { width: 100px; height: 100px; border-radius: 20px; overflow: hidden; }
-.item-photo { width: 100%; height: 100%; object-fit: cover; }
-
-/* =========================================
-   5. ANIMATIONS
-   ========================================= */
+/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.menu-panel.is-active { animation: fadeIn 0.35s ease-in-out; }
+
