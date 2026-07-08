@@ -381,6 +381,10 @@ body {
     animation: fadeIn 0.3s ease-in-out;
 }
 
+.menu-items-list {
+    display: none; 
+}
+
 .item-photo-wrapper {
     width: 100px;
     height: 100px;
