@@ -1,3 +1,5 @@
+Working js
+
 document.addEventListener('DOMContentLoaded', () => {
     // 1. TAB SWITCHING
     const tabs = document.querySelectorAll('.menu-tab');
@@ -12,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 2. FETCH MENU
-    const API_URL = "https://sheetdb.io/api/v1/sxs267ijezbcw";
+    const API_URL = "https://sheetdb.io/api/v1/gm3z35hrm9twa";
     fetch(API_URL)
         .then(res => res.json())
         .then(data => {
