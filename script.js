@@ -27,20 +27,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     groupContainer.id = groupId;
                     groupContainer.className = 'menu-group-tile';
 
-                    // Add the "collapsible" class to the heading
                     groupContainer.innerHTML = `
-                        <h3 class="group-heading collapsible" style="cursor:pointer;">${item.Group} ▾</h3>
+                        <h3 class="group-heading collapsible" style="cursor:pointer;">
+                            <span class="group-text">${item.Group}</span> 
+                            <span class="arrow">▾</span>
+                        </h3>
                         <ul class="menu-items-list" style="display:none;"></ul> 
                     `;
                     listElement.appendChild(groupContainer);
 
-                    // Add click event to the heading to toggle the list
+                    // Fixed Click Toggle Logic
                     groupContainer.querySelector('.group-heading').addEventListener('click', (e) => {
-                        const list = groupContainer.querySelector('.menu-items-list');
-                        list.style.display = list.style.display === 'none' ? 'block' : 'none';
-                        e.target.innerText = list.style.display === 'block' 
-                            ? `${item.Group} ▴` 
-                            : `${item.Group} ▾`;
+                        const heading = e.currentTarget;
+                        const list = heading.nextElementSibling;
+                        const arrow = heading.querySelector('.arrow');
+                        
+                        const isHidden = list.style.display === 'none';
+                        list.style.display = isHidden ? 'block' : 'none';
+                        arrow.innerText = isHidden ? '▴' : '▾';
                     });
                 }
 
