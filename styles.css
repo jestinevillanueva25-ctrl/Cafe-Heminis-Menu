@@ -37,7 +37,16 @@ body {
 /* =========================================
    3. HEADER & TABS
    ========================================= */
-.site-header {
+.header-content {
+    display: flex;
+    align-items: center;
+    /* Change this line to move the logo and text */
+    justify-content: flex-start; /* Use 'flex-start' for Left, 'flex-end' for Right */
+    gap: 15px; 
+    margin-bottom: 20px;
+}
+
+   .site-header {
   text-align: center;
   padding: 28px 0 18px;
 }
