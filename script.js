@@ -29,14 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
             // Create tile if it doesn't exist
             if (!groupContainer) {
                 groupContainer = document.createElement('div');
-                groupContainer.id = groupId;
-                groupContainer.className = 'menu-group-tile';
-                
-                groupContainer.innerHTML = `
-                 <h3 class="group-heading">${item.Group}</h3> <ul class="menu-items-list"></ul>
-                `;
-                listElement.appendChild(groupContainer);
-            }
+                  groupContainer.id = groupId;
+                 groupContainer.className = 'menu-group-tile';
+    
+                 groupContainer.innerHTML = `
+                     <h3 class="group-heading">${item.Group}</h3> <ul class="menu-items-list"></ul>
+    `;
+                 listElement.appendChild(groupContainer);
+                }
 
             // Always find the UL inside the current tile
             const ul = groupContainer.querySelector('.menu-items-list');
