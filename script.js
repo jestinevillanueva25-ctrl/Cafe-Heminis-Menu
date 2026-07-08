@@ -1,5 +1,3 @@
-Working js
-
 document.addEventListener('DOMContentLoaded', () => {
     // 1. TAB SWITCHING
     const tabs = document.querySelectorAll('.menu-tab');
