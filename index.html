@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Cafe Heminis - QR Menu</title>
-  <link rel="stylesheet" href="styles.css?v=20260703">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="site-header">
@@ -15,44 +15,28 @@
   </header>
 
   <main class="container">
-    <!-- QR panel removed: site now shows the menu directly -->
-
-    <div class="menu-tabs" role="tablist" aria-label="Menu categories">
-      <button class="menu-tab is-active" type="button" data-panel="drinks-panel" aria-selected="true">Drinks</button>
-      <button class="menu-tab" type="button" data-panel="food-panel" aria-selected="false">Food</button>
+    <div class="menu-tabs" role="tablist">
+      <button class="menu-tab is-active" type="button" data-panel="drinks-panel">Drinks</button>
+      <button class="menu-tab" type="button" data-panel="food-panel">Food</button>
     </div>
 
-    <!-- FOOD SECTION -->
-<section id="food-panel" class="menu-panel" aria-label="Food menu">
-    <h2>Snacks & Pre-Order</h2>
-    <ul class="menu-list" id="food-list">
-      <!-- YOUR MENU ITEMS WILL BE INSERTED HERE AUTOMATICALLY -->
-    </ul>
-  </section>
-</section>
+    <section id="drinks-panel" class="menu-panel is-active">
+        <ul class="menu-list" id="drinks-list"></ul>
+    </section>
 
-<!-- DRINKS SECTION -->
-<section id="drinks-panel" class="menu-panel is-active" aria-label="Drinks menu">
-    <h2>Cafe Heminis Drinks</h2>
-    <ul class="menu-list" id="drinks-list">
-      <!-- YOUR MENU ITEMS WILL BE INSERTED HERE AUTOMATICALLY -->
-    </ul>
-  </section>
-</section>
-
-    <footer class="site-footer">
-        <p>Designed for mobile — open on your phone to view the menu.</p>
-      </footer>
+    <section id="food-panel" class="menu-panel">
+        <ul class="menu-list" id="food-list"></ul>
+    </section>
   </main>
 
   <div id="imageModal" class="image-modal" aria-hidden="true">
-    <div class="image-modal-backdrop" id="modalBackdrop" style="position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.8);"></div>
-    <div class="image-modal-content" role="dialog" aria-modal="true" aria-label="Enlarged photo view" style="position: relative; margin: 10% auto; max-width: 90%; text-align: center;">
-      <button class="close-btn" id="closeModal" aria-label="Close photo view" style="position: absolute; right: 10px; top: 10px; font-size: 2rem; background: none; color: white; border: none; cursor: pointer;">×</button>
-      <img id="featuredPhoto" src="" alt="" style="max-width: 100%; max-height: 70vh; border-radius: 4px;">
+    <div class="image-modal-backdrop" id="modalBackdrop"></div>
+    <div class="image-modal-content">
+      <button class="close-btn" id="closeModal">×</button>
+      <img id="featuredPhoto" src="" alt="">
     </div>
   </div>
 
-  <script src="script.js?v=20260703" defer></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
