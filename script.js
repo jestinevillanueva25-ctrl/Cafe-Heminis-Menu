@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Always find the UL inside the current tile
             const ul = groupContainer.querySelector('.menu-items-list');
-            const div = document.createElement('li');
+            const li = document.createElement('li');
             li.className = item.Available === 'No' ? 'menu-item is-sold-out' : 'menu-item';
             li.innerHTML = `
                 <div class="item-meta">
