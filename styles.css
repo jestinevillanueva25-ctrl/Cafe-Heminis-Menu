@@ -39,11 +39,12 @@ body {
    ========================================= */
 .header-content {
     display: flex;
-    align-items: center;
-    /* Change this line to move the logo and text */
-    justify-content: flex-end; /* Use 'flex-start' for Left, 'flex-end' for Right */
-    gap: 15px; 
-    margin-bottom: 20px;
+    align-items: center;      /* Vertically aligns logo and text */
+    justify-content: flex-start; /* Aligns everything to the LEFT */
+    gap: 15px;                /* Space between logo and text */
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
    .site-header {
@@ -56,6 +57,9 @@ body {
     padding-right: 20px;
 }
 
+.header-text {
+    text-align: left;         /* Makes text align left beside the logo */
+}
 .site-header h1 {
   font-size: 28px;
   font-weight: 800;
