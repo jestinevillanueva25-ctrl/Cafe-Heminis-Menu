@@ -345,7 +345,14 @@ body {
     display: grid;
     grid-template-columns: 1fr 100px;
     gap: 16px;
-    align-items: center;
+    align-items: start;
+}
+
+.group-heading {
+    margin: 30px 0 15px 10px;
+    font-size: 1.4rem;
+    color: #4b2e1f;
+    text-transform: uppercase;
 }
 
 .menu-items-list {
