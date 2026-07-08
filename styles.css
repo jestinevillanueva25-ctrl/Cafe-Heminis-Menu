@@ -41,7 +41,7 @@ body {
     display: flex;
     align-items: center;
     /* Change this line to move the logo and text */
-    justify-content: flex-start; /* Use 'flex-start' for Left, 'flex-end' for Right */
+    justify-content: flex-end; /* Use 'flex-start' for Left, 'flex-end' for Right */
     gap: 15px; 
     margin-bottom: 20px;
 }
