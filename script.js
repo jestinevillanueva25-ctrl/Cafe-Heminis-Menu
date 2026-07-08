@@ -1,7 +1,5 @@
-Working js code
-
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. TAB SWITCHING LOGIC
+    // 1. TAB SWITCHING
     const tabs = document.querySelectorAll('.menu-tab');
     const panels = document.querySelectorAll('.menu-panel');
     tabs.forEach(tab => {
@@ -13,71 +11,58 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 2. FETCH MENU FROM GOOGLE SHEET
+    // 2. FETCH MENU
     const API_URL = "https://sheetdb.io/api/v1/gm3z35hrm9twa";
-
     fetch(API_URL)
-    .then(response => response.json())
+    .then(res => res.json())
     .then(data => {
         data.forEach(item => {
             const listId = item.Category === 'Food' ? 'food-list' : 'drinks-list';
             const listElement = document.getElementById(listId);
-
             const groupId = item.Group.replace(/\s+/g, '-').toLowerCase();
             let groupContainer = document.getElementById(groupId);
 
-            // Create tile if it doesn't exist
             if (!groupContainer) {
                 groupContainer = document.createElement('div');
-                  groupContainer.id = groupId;
-                 groupContainer.className = 'menu-group-tile';
-    
-                 groupContainer.innerHTML = `
-                     <h3 class="group-heading">${item.Group}</h3> <ul class="menu-items-list"></ul>
-    `;
-                 listElement.appendChild(groupContainer);
-                }
+                groupContainer.id = groupId;
+                groupContainer.className = 'menu-group-tile';
+                groupContainer.innerHTML = `<h3 class="group-heading">${item.Group}</h3><ul class="menu-items-list"></ul>`;
+                listElement.appendChild(groupContainer);
+            }
 
-            // Always find the UL inside the current tile
             const ul = groupContainer.querySelector('.menu-items-list');
-            const div = document.createElement('li');
+            const li = document.createElement('li'); // Fixed variable declaration
             li.className = item.Available === 'No' ? 'menu-item is-sold-out' : 'menu-item';
             li.innerHTML = `
                 <div class="item-meta">
-                 <div class="item-main">
-                    <span class="name">${item.Name}</span>
-                   <span class="price">${item.Price}</span>
-                 </div>
-                 <div class="item-details"><p>${item.Ingredients}</p></div>
-                 </div>
-                 <div class="item-photo-wrapper">
-                      <img class="item-photo" src="${item.ImageURL}" alt="${item.Name}" onerror="this.style.display='none'">
-                 </div>`;
+                    <div class="item-main">
+                        <span class="name">${item.Name}</span>
+                        <span class="price">${item.Price}</span>
+                    </div>
+                    <div class="item-details"><p>${item.Ingredients}</p></div>
+                </div>
+                <div class="item-photo-wrapper">
+                    <img class="item-photo" src="${item.ImageURL}" alt="${item.Name}" onerror="this.style.display='none'">
+                </div>`;
             ul.appendChild(li);
         });
     });
 
-    // 3. IMAGE MODAL LOGIC (Kept outside the fetch loop)
+    // 3. IMAGE MODAL
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('featuredPhoto');
     const closeBtn = document.getElementById('closeModal');
-    const modalBackdrop = document.getElementById('modalBackdrop');
+    const backdrop = document.getElementById('modalBackdrop');
 
-    document.addEventListener('click', (event) => {
-        if (event.target.classList.contains('item-photo')) {
-            modal.style.display = 'block';
-            modal.setAttribute('aria-hidden', 'false');
-            modalImg.src = event.target.src;
-            modalImg.alt = event.target.alt;
+    document.addEventListener('click', (e) => {
+        const target = e.target.closest('.item-photo');
+        if (target) {
+            modal.classList.add('open');
+            modalImg.src = target.src;
         }
     });
 
-    const closeModal = () => {
-        modal.style.display = 'none';
-        modal.setAttribute('aria-hidden', 'true');
-    };
-
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
+    const close = () => modal.classList.remove('open');
+    closeBtn.addEventListener('click', close);
+    backdrop.addEventListener('click', close);
 });
-
