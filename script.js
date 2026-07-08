@@ -15,56 +15,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const API_URL = "https://sheetdb.io/api/v1/gm3z35hrm9twa";
 
     fetch(API_URL)
-        .then(response => response.json())
-        .then(data => {
-            const foodList = document.getElementById('food-list');
-            const drinksList = document.getElementById('drinks-list');
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(item => {
+            const listId = item.Category === 'Food' ? 'food-list' : 'drinks-list';
+            const listElement = document.getElementById(listId);
 
-            data.forEach(item => {
-                const listId = item.Category === 'Food' ? 'food-list' : 'drinks-list';
-                const listElement = document.getElementById(listId);
+            const groupId = item.Group.replace(/\s+/g, '-').toLowerCase();
+            let groupContainer = document.getElementById(groupId);
 
-                // Create a unique ID for this group tile
-                const groupId = item.Group.replace(/\s+/g, '-').toLowerCase();
-                let groupContainer = document.getElementById(groupId);
+            // Create tile if it doesn't exist
+            if (!groupContainer) {
+                groupContainer = document.createElement('div');
+                groupContainer.id = groupId;
+                groupContainer.className = 'menu-group-tile';
+                
+                groupContainer.innerHTML = `
+                    <h3>${item.Group}</h3>
+                    <ul class="menu-items-list"></ul>
+                `;
+                listElement.appendChild(groupContainer);
+            }
 
-                // If the group container doesn't exist yet, create it as a "tile"
-                if (!groupContainer) {
-                    groupContainer = document.createElement('div');
-                    groupContainer.id = groupId;
-                    groupContainer.className = 'menu-group-tile'; // The "Tile" class
-
-                    // Add a title to the tile
-                    const h3 = document.createElement('h3');
-                    h3.textContent = item.Group;
-                    groupContainer.appendChild(h3);
-
-                    // Add a list inside the tile
-                    const ul = document.createElement('ul');
-                    ul.className = 'menu-items-list';
-                    groupContainer.appendChild(ul);
-
-                    listElement.appendChild(groupContainer);
-                }
-
-                // Append the item to the UL inside that specific group tile
-                const ul = groupContainer.querySelector('.menu-items-list');
-                const li = document.createElement('li');
-                li.className = item.Available === 'No' ? 'menu-item is-sold-out' : 'menu-item';
-                li.innerHTML = `
-                    <div class="item-meta">
-                        <div class="item-main">
-                            <span class="name">${item.Name}</span>
-                            <span class="price">${item.Price}</span>
-                        </div>
-                        <div class="item-details"><p>${item.Ingredients}</p></div>
+            // Always find the UL inside the current tile
+            const ul = groupContainer.querySelector('.menu-items-list');
+            const li = document.createElement('li');
+            li.className = item.Available === 'No' ? 'menu-item is-sold-out' : 'menu-item';
+            li.innerHTML = `
+                <div class="item-content">
+                    <div class="item-main">
+                        <span class="name">${item.Name}</span>
+                        <span class="price">${item.Price}</span>
                     </div>
-                    <div class="item-photo-wrapper">
-                        <img class="item-photo" src="${item.ImageURL}" alt="${item.Name}" onerror="this.style.display='none'">
-                    </div>`;
-                ul.appendChild(li);
-            });
+                    <div class="item-details"><p>${item.Ingredients}</p></div>
+                </div>
+                <div class="item-photo-wrapper">
+                    <img class="item-photo" src="${item.ImageURL}" alt="${item.Name}" onerror="this.style.display='none'">
+                </div>`;
+            ul.appendChild(li);
         });
+    });
 
     // 3. IMAGE MODAL LOGIC (Kept outside the fetch loop)
     const modal = document.getElementById('imageModal');
