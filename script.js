@@ -14,39 +14,53 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. FETCH MENU
     const API_URL = "https://sheetdb.io/api/v1/gm3z35hrm9twa";
     fetch(API_URL)
-    .then(res => res.json())
-    .then(data => {
-        data.forEach(item => {
-            const listId = item.Category === 'Food' ? 'food-list' : 'drinks-list';
-            const listElement = document.getElementById(listId);
-            const groupId = item.Group.replace(/\s+/g, '-').toLowerCase();
-            let groupContainer = document.getElementById(groupId);
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(item => {
+                const listId = item.Category === 'Food' ? 'food-list' : 'drinks-list';
+                const listElement = document.getElementById(listId);
+                const groupId = item.Group.replace(/\s+/g, '-').toLowerCase();
+                let groupContainer = document.getElementById(groupId);
 
-            if (!groupContainer) {
-                groupContainer = document.createElement('div');
-                groupContainer.id = groupId;
-                groupContainer.className = 'menu-group-tile';
-                groupContainer.innerHTML = `<h3 class="group-heading">${item.Group}</h3><ul class="menu-items-list"></ul>`;
-                listElement.appendChild(groupContainer);
-            }
+                if (!groupContainer) {
+                    groupContainer = document.createElement('div');
+                    groupContainer.id = groupId;
+                    groupContainer.className = 'menu-group-tile';
 
-            const ul = groupContainer.querySelector('.menu-items-list');
-            const li = document.createElement('li'); // Fixed variable declaration
-            li.className = item.Available === 'No' ? 'menu-item is-sold-out' : 'menu-item';
-            li.innerHTML = `
-                <div class="item-meta">
-                    <div class="item-main">
-                        <span class="name">${item.Name}</span>
-                        <span class="price">${item.Price}</span>
+                    // Add the "collapsible" class to the heading
+                    groupContainer.innerHTML = `
+                        <h3 class="group-heading collapsible" style="cursor:pointer;">${item.Group} ▾</h3>
+                        <ul class="menu-items-list" style="display:none;"></ul> 
+                    `;
+                    listElement.appendChild(groupContainer);
+
+                    // Add click event to the heading to toggle the list
+                    groupContainer.querySelector('.group-heading').addEventListener('click', (e) => {
+                        const list = groupContainer.querySelector('.menu-items-list');
+                        list.style.display = list.style.display === 'none' ? 'block' : 'none';
+                        e.target.innerText = list.style.display === 'block' 
+                            ? `${item.Group} ▴` 
+                            : `${item.Group} ▾`;
+                    });
+                }
+
+                const ul = groupContainer.querySelector('.menu-items-list');
+                const li = document.createElement('li');
+                li.className = item.Available === 'No' ? 'menu-item is-sold-out' : 'menu-item';
+                li.innerHTML = `
+                    <div class="item-meta">
+                        <div class="item-main">
+                            <span class="name">${item.Name}</span>
+                            <span class="price">${item.Price}</span>
+                        </div>
+                        <div class="item-details"><p>${item.Ingredients}</p></div>
                     </div>
-                    <div class="item-details"><p>${item.Ingredients}</p></div>
-                </div>
-                <div class="item-photo-wrapper">
-                    <img class="item-photo" src="${item.ImageURL}" alt="${item.Name}" onerror="this.style.display='none'">
-                </div>`;
-            ul.appendChild(li);
+                    <div class="item-photo-wrapper">
+                        <img class="item-photo" src="${item.ImageURL}" alt="${item.Name}" onerror="this.style.display='none'">
+                    </div>`;
+                ul.appendChild(li);
+            });
         });
-    });
 
     // 3. IMAGE MODAL
     const modal = document.getElementById('imageModal');
@@ -63,6 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const close = () => modal.classList.remove('open');
-    closeBtn.addEventListener('click', close);
-    backdrop.addEventListener('click', close);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (backdrop) backdrop.addEventListener('click', close);
 });
