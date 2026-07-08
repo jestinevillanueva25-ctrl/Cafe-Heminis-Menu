@@ -40,7 +40,7 @@ body {
 .header-content {
     display: flex;
     align-items: center;      /* Vertically aligns logo and text */
-    justify-content: flex-start; /* Aligns everything to the LEFT */
+    justify-content: center; /* Aligns everything to the LEFT */
     gap: 20px;                /* Space between logo and text */
     max-width: 620px;
     margin: 0 auto;
