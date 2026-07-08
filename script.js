@@ -33,8 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 groupContainer.className = 'menu-group-tile';
                 
                 groupContainer.innerHTML = `
-                    <h3>${item.Group}</h3>
-                    <ul class="menu-items-list"></ul>
+                 <h3 class="group-heading">${item.Group}</h3> <ul class="menu-items-list"></ul>
                 `;
                 listElement.appendChild(groupContainer);
             }
