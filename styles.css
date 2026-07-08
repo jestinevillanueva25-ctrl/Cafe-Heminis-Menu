@@ -59,12 +59,11 @@ body {
 }
 
 .site-logo {
-  display: block;
-  margin: 0 auto 15px auto; /* Centers the logo and adds space below it */
-  max-width: 150px;         /* Adjust this to change logo size */
-  height: auto;
-  border-radius: 50%;       /* Optional: makes the logo circular */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow for a premium feel */
+    display: block;
+    max-width: 50px; /* Reducing this makes it a nice 'icon' size */
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .subtitle {
