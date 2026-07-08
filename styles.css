@@ -41,13 +41,12 @@ body {
     display: flex;
     align-items: center;      /* Vertically aligns logo and text */
     justify-content: flex-start; /* Aligns everything to the LEFT */
-    gap: 15px;                /* Space between logo and text */
+    gap: 20px;                /* Space between logo and text */
     max-width: 620px;
     margin: 0 auto;
-    padding: 20px;
 }
 
-   .site-header {
+.site-header {
   text-align: center;
   padding: 28px 0 18px;
 }
