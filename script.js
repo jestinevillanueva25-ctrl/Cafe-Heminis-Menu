@@ -1,3 +1,5 @@
+Working js code
+
 document.addEventListener('DOMContentLoaded', () => {
     // 1. TAB SWITCHING LOGIC
     const tabs = document.querySelectorAll('.menu-tab');
@@ -39,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Always find the UL inside the current tile
             const ul = groupContainer.querySelector('.menu-items-list');
-            const li = document.createElement('li');
+            const div = document.createElement('li');
             li.className = item.Available === 'No' ? 'menu-item is-sold-out' : 'menu-item';
             li.innerHTML = `
                 <div class="item-meta">
@@ -79,3 +81,4 @@ document.addEventListener('DOMContentLoaded', () => {
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
     if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
 });
+
