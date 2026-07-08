@@ -226,12 +226,11 @@ body {
 }
 
 .item-photo-wrapper {
-  width: 96px;
-  height: 96px;
-  border-radius: 26px;
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 16px 34px rgba(71, 29, 9, 0.18);
+    width: 96px;
+    height: 96px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #f0f0f0; /* Light grey placeholder if image is missing */
 }
 
 .item-photo {
@@ -329,33 +328,26 @@ body {
 .menu-group-tile {
     background: #ffffff;
     border-radius: 20px;
-    padding: 20px; /* Space inside the tile */
-    margin-bottom: 25px; /* Space between tiles */
+    padding: 24px;       /* This creates the inner spacing */
+    margin-bottom: 30px; /* This creates the space BETWEEN tiles */
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
+/* 2. Add space between the Heading and the list */
 .menu-group-tile h3 {
-    margin-bottom: 15px;
-    color: #4b2e1f;
-    font-size: 1.2rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
     border-bottom: 2px solid #f3e0c6;
-    padding-bottom: 8px;
 }
 
-/* The List inside the Tile */
-.menu-items-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-/* The Individual Item */
+/* 3. Give individual items breathing room inside the tile */
 .menu-item {
     display: grid;
     grid-template-columns: 1fr 96px;
-    gap: 15px;
-    padding: 15px 0; /* Space between items inside the tile */
-    border-bottom: 1px solid #f0f0f0;
+    gap: 16px;
+    align-items: center;
+    padding: 18px 0;    /* Adds space above/below each item */
+    border-bottom: 1px solid #f9f9f9;
 }
 
 .menu-item:last-child {
