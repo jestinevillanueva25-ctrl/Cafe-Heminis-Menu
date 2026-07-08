@@ -96,19 +96,30 @@ body {
   display: block;
 }
 
-.group-heading {
-    display: block;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff !important;
-    padding: 12px 20px;
-    border-radius: 12px;
-    margin: 20px 0 10px 0;
-    transition: background 0.3s;
+.group-heading.collapsible {
+    background: rgba(255, 255, 255, 0.95); /* Semi-transparent white */
+    color: var(--text-main) !important;    /* Dark brown text for readability */
+    padding: 16px 20px;
+    border-radius: 16px;
+    margin: 24px 0 12px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.group-heading:hover {
-    background: rgba(255, 255, 255, 0.35);
+/* Optional: Add a subtle hover effect */
+.group-heading.collapsible:hover {
+    background: #fff;
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
 }
+
 
 
 .menu-card {
